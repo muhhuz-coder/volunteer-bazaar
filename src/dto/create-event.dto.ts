@@ -1,14 +1,42 @@
+import { IsString, IsNumber, IsDate, IsNotEmpty } from 'class-validator';
+import { Type } from 'class-transformer';
 
-  // src/dto/create-event.dto.ts
-  export class createEventDto {
-    title: string;
-    event_type_id: number;
-    start_date: Date;
-    end_date: Date;
-    start_time: string;
-    end_time: string;
-    city_id: number;
-    organization_id: number;
-    rating: number;
-  }
-  
+export class createEventDto {
+  @IsNotEmpty()
+  @IsString()
+  title: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  event_type_id: number;
+
+  @IsNotEmpty()
+  @Type(() => Date)  // ✅ Transform string to Date
+  @IsDate()
+  start_date: Date;
+
+  @IsNotEmpty()
+  @Type(() => Date)  // ✅ Transform string to Date
+  @IsDate()
+  end_date: Date;
+
+  @IsNotEmpty()
+  @IsString()
+  start_time: string;
+
+  @IsNotEmpty()
+  @IsString()
+  end_time: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  city_id: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  organization_id: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  rating: number;
+}

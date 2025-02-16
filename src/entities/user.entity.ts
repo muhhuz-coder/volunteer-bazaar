@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
 import { UserEvent } from './user-event.entity';
 import { UserCause } from './user-cause.entity';
 import { Degree } from './degree.entity';
@@ -22,19 +22,10 @@ export class User {
   age: number;
 
   @Column()
-  city_id: number;
-
-  @Column()
   province: string;
 
   @Column()
   rating: number;
-
-  @Column()
-  degree_id: number;
-
-  @Column()
-  field_id: number;
 
   @Column()
   university: string;
@@ -54,15 +45,20 @@ export class User {
   @Column()
   hours_completed: number;
 
+  // ✅ Corrected Foreign Key Relations
   @ManyToOne(() => City, city => city.users)
+  @JoinColumn({ name: 'city_id' }) // Ensures column matches database
   city: City;
 
   @ManyToOne(() => Degree, degree => degree.users)
+  @JoinColumn({ name: 'degree_id' }) // Ensures column matches database
   degree: Degree;
 
   @ManyToOne(() => Field, field => field.users)
+  @JoinColumn({ name: 'field_id' }) // Ensures column matches database
   field: Field;
 
+  // ✅ One-to-Many Relationships
   @OneToMany(() => UserSkill, userSkill => userSkill.user)
   userSkills: UserSkill[];
 

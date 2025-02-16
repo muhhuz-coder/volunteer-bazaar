@@ -11,10 +11,17 @@ import { UserService } from "src/services/user.service";
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @Get()
+  @ApiOperation({ summary: 'Get all users' })
+  getUsers() {
+    return this.userService.findAll({});
+  }
+
+
   @Get('stats/:id')
   @ApiOperation({ summary: 'Get user statistics' })
-  getUserStats(@Param('id') id: string) {
-    return this.userService.getUserStats(+id);
+  getUserStats(@Param('id') id: number) {
+    return this.userService.getUserStats(id);
   }
 
   @Get('search')

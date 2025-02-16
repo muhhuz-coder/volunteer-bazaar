@@ -1,18 +1,70 @@
-export class UserQueryDto {
-    name?: string;
-    gender?: string;
-    age?: number;
-    city_id?: number;
-    province?: string;
-    rating?: number;
-    degree_id?: number;
-    field_id?: number;
-    university?: string;
-    employment_status?: string;
-    referral_count?: number;
-    hours_completed?: number;
-    cause_id?: number;
-    event_type_id?: number;
-    skill_id?: number;
-  }
-  
+import { IsOptional, IsString, IsNumber } from 'class-validator';
+
+export class 
+
+UserQueryDto {
+  @IsOptional()
+  @IsString()
+  user_id?: number;
+
+
+  @IsOptional()
+  @IsString()
+  name?: string;
+
+  @IsOptional()
+  @IsString()
+  gender?: string;
+
+  @IsOptional()
+  @IsNumber()
+  age?: number;
+
+  @IsOptional()
+  @IsNumber()
+  city_id?: number;
+
+  @IsOptional()
+  @IsString()
+  province?: string;
+
+  @IsOptional()
+  @IsNumber()
+  rating?: number;
+
+  @IsOptional()
+  @IsNumber()
+  degree_id?: number;
+
+  @IsOptional()
+  @IsNumber()
+  field_id?: number;
+
+  @IsOptional()
+  @IsString()
+  university?: string;
+
+  @IsOptional()
+  @IsString()
+  employment_status?: string;
+
+  @IsOptional()
+  @IsNumber()
+  referral_count?: number;
+
+  @IsOptional()
+  @IsNumber()
+  hours_completed?: number;
+
+  @IsOptional()
+  @IsNumber()
+  cause_id?: number;
+
+  @IsOptional()
+  @IsNumber()
+  event_type_id?: number;
+
+  @IsOptional()
+  @IsNumber()
+  skill_id?: number;
+}

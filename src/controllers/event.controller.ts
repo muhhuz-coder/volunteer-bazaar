@@ -1,9 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
-import { createEventDto } from "src/dto/create-event.dto";
-import { updateEventDto } from "src/dto/update-event.dto";
-import { EventService } from "src/services/event.service";
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { createEventDto } from '../dto/create-event.dto';  // Ensure correct relative import
+import { EventService } from '../services/event.service';
+import { updateEventDto } from 'src/dto/update-event.dto';
 
-// src/controllers/event.controller.ts
 @Controller('events')
 export class EventController {
   constructor(private readonly eventService: EventService) {}
