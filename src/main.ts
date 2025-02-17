@@ -10,6 +10,8 @@ import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import helmet from 'helmet';
 import * as compression from 'compression';
+import { HttpExceptionFilter } from './filters/http-exception.filter';
+
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,6 +19,10 @@ async function bootstrap() {
   // Security middlewares
   app.use(helmet());
   app.use(compression());
+  
+  // Global exception filter
+  app.useGlobalFilters(new HttpExceptionFilter());
+
   
   // Validation
   app.useGlobalPipes(new ValidationPipe({
