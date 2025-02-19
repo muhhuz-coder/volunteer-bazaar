@@ -9,7 +9,7 @@ const dbConfig = {
     database: 'volunteer_db',
     port: 3306,
 };
-//tesst21
+//tesst21s
 const pool = mysql.createPool(dbConfig);
 //test
 const importUserEvents = async () => {
