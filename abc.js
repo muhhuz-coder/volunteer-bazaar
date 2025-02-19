@@ -11,7 +11,7 @@ const dbConfig = {
 };
 
 const pool = mysql.createPool(dbConfig);
-
+//test
 const importUserEvents = async () => {
     let connection;
     try {
