@@ -3,9 +3,9 @@ import csv from 'csv-parser';
 import mysql from 'mysql2';
 
 const dbConfig = {
-    host: 'volunteerdbinstance.cv6q86yyyce6.ap-southeast-2.rds.amazonaws.com',
-    user: 'admin',
-    password: 'As5526as123',
+    host: 'localhost',
+    user: 'root',
+    password: 'huzaifa123',
     database: 'volunteer_db',
     port: 3306,
 };

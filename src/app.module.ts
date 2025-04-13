@@ -8,7 +8,9 @@ import { HealthController } from './controllers/health.controller';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     TypeOrmModule.forRoot(databaseConfig),
     UserModule,
     EventModule,
