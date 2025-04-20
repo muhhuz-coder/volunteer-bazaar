@@ -14,15 +14,22 @@ import { UserEventType } from '../entities/user-event-type.entity';
 import { UserEvent } from '../entities/user-event.entity';
 import { UserSkill } from '../entities/user-skill.entity';
 
+// For debugging
+console.log('DB Environment Variables:', {
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD ? '[PASSWORD SET]' : '[NO PASSWORD]',
+  database: process.env.DB_DATABASE,
+});
+
 export const databaseConfig: TypeOrmModuleOptions = {
   type: 'mysql',
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 3306,
-  
-  
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+  host: 'localhost',
+  port: 3306,
+  username: 'root',
+  password: 'huzaifa123',
+  database: 'volunteer_db',
   entities: [
     User,
     Event,
@@ -38,7 +45,8 @@ export const databaseConfig: TypeOrmModuleOptions = {
     UserEvent,
     UserSkill
   ],
-  synchronize: false, // Very important: Keep this false since database already exists
+  synchronize: true, // Temporarily enabled to create tables
   logging: true,
   connectTimeout: 30000, // Increased timeout for AWS RDS connection
+  autoLoadEntities: true,
 };

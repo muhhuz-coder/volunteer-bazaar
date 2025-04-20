@@ -22,17 +22,67 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+# Volunteer Bazaar
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+A comprehensive volunteer management platform connecting organizations with volunteers.
 
-## Project setup
+## Features
+
+- **User Authentication**: Secure signup and login for volunteers, organizations, and admins
+- **Volunteer Management**: Browse, search, and apply for volunteer opportunities
+- **Organization Management**: Post volunteer opportunities, manage applications
+- **Admin Dashboard**: Monitor platform activity, approve organizations, view statistics
+
+## Tech Stack
+
+- **Backend**: NestJS with TypeScript
+- **Database**: MySQL with TypeORM
+- **Authentication**: JWT with Passport.js
+- **Documentation**: Swagger/OpenAPI
+- **Security**: Helmet, bcrypt for password hashing
+
+## Prerequisites
+
+- Node.js (v14+)
+- MySQL
+
+## Project Setup
+
+1. Clone the repository:
+
+```bash
+$ git clone https://github.com/yourusername/volunteer-bazaar.git
+$ cd volunteer-bazaar
+```
+
+2. Install dependencies:
 
 ```bash
 $ npm install
 ```
 
-## Compile and run the project
+3. Configure environment variables:
+
+Create a `.env` file in the root directory with the following content:
+
+```
+PORT=3000
+DB_HOST=localhost
+DB_PORT=3306
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+DB_DATABASE=volunteer_bazaar
+JWT_SECRET=your_secret_key
+ALLOWED_ORIGINS=http://localhost:4200,https://yourdomain.com
+```
+
+4. Run the database migrations:
+
+```bash
+$ npm run migration:run
+```
+
+5. Start the application:
 
 ```bash
 # development
@@ -45,31 +95,46 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Run tests
+## API Documentation
+
+Once the application is running, you can access the Swagger documentation at:
+
+```
+http://localhost:3000/api-docs
+```
+
+## Authentication
+
+The API uses JWT for authentication. To access protected endpoints, you need to:
+
+1. Obtain a token by logging in through the `/auth/login` endpoint
+2. Include the token in your requests using the Authorization header:
+   ```
+   Authorization: Bearer your_token_here
+   ```
+
+## User Roles
+
+- **Volunteer**: Regular users who can browse and apply for volunteer opportunities
+- **Organization**: Can post volunteer opportunities and manage applicants
+- **Admin**: Has full access to the platform, can approve/reject organizations
+
+## Additional Scripts
 
 ```bash
-# unit tests
+# database migrations
+$ npm run migration:generate -- -n YourMigrationName
+$ npm run migration:run
+$ npm run migration:revert
+
+# testing
 $ npm run test
-
-# e2e tests
 $ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
 
 ## Deployment
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Check the "Deployment" section in the NestJS documentation for options on deploying your application.
 
 ## Resources
 

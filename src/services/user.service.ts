@@ -1,9 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { UserQueryDto } from '../dto/user-query.dto';
 import { EventService } from './event.service';
+import { UserRole } from '../dto/auth.dto';
 
 @Injectable()
 export class UserService {
@@ -19,8 +20,8 @@ export class UserService {
 
     if (query.user_id) {
       queryBuilder.andWhere('user.user_id = :user_id', { user_id: query.user_id });
-  }
-  
+    }
+    
     if (query.name) {
       queryBuilder.andWhere('user.name LIKE :name', { name: `%${query.name}%` });
     }
@@ -71,5 +72,53 @@ export class UserService {
       hoursCompleted: user.hours_completed || 0,
     };
   }
-  
+
+  async getUserProfile(userId: number): Promise<User> {
+    const user = await this.userRepository.findOne({
+      where: { user_id: userId },
+      relations: ['city', 'degree', 'field', 'userSkills', 'userSkills.skill', 'userCauses', 'userCauses.cause'],
+    });
+
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+
+    // Remove password for security
+    const { password, ...userWithoutPassword } = user;
+    return userWithoutPassword as User;
+  }
+
+  async updateUserProfile(userId: number, updateProfileDto: any): Promise<User> {
+    const user = await this.userRepository.findOne({
+      where: { user_id: userId },
+    });
+
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+
+    // Don't allow updating email, role or password through this endpoint
+    const { email, role, password, ...allowedUpdates } = updateProfileDto;
+
+    // Update user properties
+    Object.assign(user, allowedUpdates);
+    
+    const updatedUser = await this.userRepository.save(user);
+    
+    // Remove password for security
+    const { password: pwd, ...userWithoutPassword } = updatedUser;
+    return userWithoutPassword as User;
+  }
+
+  async findUsersByRole(role: UserRole): Promise<User[]> {
+    const users = await this.userRepository.find({
+      where: { role },
+    });
+
+    // Remove passwords for security
+    return users.map(user => {
+      const { password, ...userWithoutPassword } = user;
+      return userWithoutPassword as User;
+    });
+  }
 }
