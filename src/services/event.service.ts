@@ -12,19 +12,8 @@ export class EventService {
     @InjectRepository(UserEvent) private userEventRepository: Repository<UserEvent>
   ) {}
 
-  async findAll({ page = 1, limit = 10 }) {
-    const pageNumber = Number(page);
-    const limitNumber = Number(limit);
-  
-    // Ensure both values are valid numbers
-    if (isNaN(pageNumber) || isNaN(limitNumber)) {
-      throw new Error('Page and limit must be valid numbers.');
-    }
-  
-    return await this.eventRepository.find({
-      skip: (pageNumber - 1) * limitNumber,
-      take: limitNumber,
-    });
+  async findAll() {
+    return await this.eventRepository.find();
   }
   
 

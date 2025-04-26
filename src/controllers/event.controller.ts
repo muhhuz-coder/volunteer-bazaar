@@ -53,14 +53,7 @@ async findOne(@Param('id') id: string) {
 }
 @Get()
 async findAll(@Query('page') page?: string, @Query('limit') limit?: string) {
-  const pageNumber = Number(page) || 1;
-  const limitNumber = Number(limit) || 10;
-
-  if (isNaN(pageNumber) || isNaN(limitNumber)) {
-    throw new Error('Page and limit must be valid numbers.');
-  }
-
-  return await this.eventService.findAll({ page: pageNumber, limit: limitNumber });
+  return await this.eventService.findAll();
 }
 
   @Post()
